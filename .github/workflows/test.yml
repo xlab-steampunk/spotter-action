@@ -1,0 +1,37 @@
+name: "Tests"
+on:
+  push:
+  pull_request:
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v3
+
+      - name: Run Ansible scan with minimal possible example
+        uses: ./
+        env:
+          SPOTTER_USERNAME: ${{ secrets.SPOTTER_USERNAME }}
+          SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}
+        continue-on-error: true
+
+      - name: Run Ansible scan with different inputs
+        uses: ./
+        with:
+          paths: tests/playbook-with-errors.yml
+          parse_values: true
+          display_level: error
+          ansible_version: 2.13
+          spotter_username: ${{ secrets.SPOTTER_USERNAME }}
+          spotter_password: ${{ secrets.SPOTTER_PASSWORD }}
+        continue-on-error: true
+
+      - name: Run Ansible scan without errors
+        uses: ./
+        with:
+          paths: tests/playbook-no-errors.yml
+          ansible_version: 2.13
+        env:
+          SPOTTER_USERNAME: ${{ secrets.SPOTTER_USERNAME }}
+          SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}

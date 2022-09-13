@@ -1,0 +1,39 @@
+name: 'Steampunk Spotter'
+description: 'Scan your Ansible artifacts using Steampunk Spotter CLI.'
+author: 'XLAB Steampunk'
+inputs:
+  spotter_username:
+    description: 'Steampunk Spotter account username. If not provided, SPOTTER_USERNAME environment variable is used.'
+    required: false
+  spotter_password:
+    description: 'Steampunk Spotter account password. If not provided, SPOTTER_PASSWORD environment variable is used.'
+    required: false
+  cli_version:
+    description: 'The version of the Steampunk Spotter CLI. If not provided, the latest version is used.'
+    required: false
+  paths:
+    description: 'List of paths to Ansible artifacts to be scanned. If not provided, the whole repository is scanned.'
+    required: false
+  parse_values:
+    description: 'If true, it parses values from Ansible task parameters and sends them for scanning.'
+    required: false
+  display_level:
+    description: 'Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints).'
+    required: false
+  ansible_version:
+    description: 'Ansible version to use for scanning. If not provided, the latest Ansible version is used.'
+    required: false
+outputs:
+  output:
+    description: 'Output from scanning (from spotter scan CLI command).'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.cli_version }}
+    - ${{ inputs.paths }}
+    - ${{ inputs.spotter_username }}
+    - ${{ inputs.spotter_password }}
+    - ${{ inputs.parse_values }}
+    - ${{ inputs.display_level }}
+    - ${{ inputs.ansible_version }}

@@ -1,0 +1,9 @@
+---
+- name: OpenSSL example
+  hosts: localhost
+  tasks:
+    - name: Ensure that the server certificate belongs to the specified private key
+      community.crypto.x509_certificate:
+        path: "{{ config_path }}/certificates/server.crt"
+        privatekey_path: "{{ config_path }}/certificates/server.key"
+        provider: assertonly

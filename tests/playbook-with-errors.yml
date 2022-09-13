@@ -1,0 +1,44 @@
+---
+- name: Sample playbook
+  hosts: localhost
+
+  collections:
+    - sensu.sensu_go
+    - ansible.builtin
+
+  tasks:
+    - name: Create local user
+      sensu.sensu_go.user:
+        name: johnmcclane
+
+    - name: OpenStack info gathering
+      openstack.cloud.os_flavor_info:
+
+    - name: Create Sensu Go user
+      user:
+        name: joe
+        password: "{{ lookup('env', 'SENSU_USER_PASSWORD') }}"
+
+    - name: Manage PHP dependencies
+      composer:
+        working-dir: /tmp
+
+    - name: Run command
+      ansible.builtin.shell: touch /tmp/lock
+
+    - name: Read-only command
+      ansible.builtin.command: ls /tmp
+      changed_when: false
+
+    - name: Print a message
+      ansible.builtin.debug:
+        msg: Hello from Ansible
+      check_mode: true
+
+    - name: Include other play
+      ansible.builtin.include: otherplay.yaml
+      check_mode: true
+
+    - name: List Sensu users
+      sensu.sensu_go.user_info:
+      register: sensu_users
