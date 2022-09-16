@@ -3,49 +3,33 @@
 # set CLI arguments
 cli_version="$1"
 paths="$2"
-spotter_username="$3"
-spotter_password="$4"
-parse_values="$5"
-display_level="$6"
-ansible_version="$7"
+parse_values="$3"
+display_level="$4"
+ansible_version="$5"
 
 installDifferentSpotterCLIVersionIfNeeded() {
-  if [ ! -z "$cli_version" ]; then
+  if [ -n "$cli_version" ]; then
     pip install --upgrade steampunk-spotter=="${cli_version}"
   fi
 }
 
-buildMainCLICommand() {
-  main_command="spotter"
+buildScanCLICommand() {
+  scan_command="spotter scan"
 
-  if [ ! -z "$spotter_username" ]; then
-    main_command="${main_command} --username ${spotter_username}"
-  fi
-
-  if [ ! -z "$spotter_password" ]; then
-    main_command="${main_command} --password ${spotter_password}"
-  fi
-}
-
-buildScanCLISubCommand() {
-  scan_command="scan"
-
-  if [ ! -z "$parse_values" ]; then
+  if [ "$parse_values" == "true" ]; then
     scan_command="${scan_command} --parse-values"
   fi
 
-  if [ ! -z "$display_level" ]; then
+  if [ -n "$display_level" ]; then
     scan_command="${scan_command} --display-level ${display_level}"
   fi
 
-  if [ ! -z "$ansible_version" ]; then
+  if [ -n "$ansible_version" ]; then
     scan_command="${scan_command} --option ansible_version=${ansible_version}"
   fi
 
-  if [ ! -z "$paths" ]; then
+  if [ -n "$paths" ]; then
     scan_command="${scan_command} $paths"
-  else
-    scan_command="${scan_command} ."
   fi
 }
 
@@ -53,8 +37,7 @@ buildScanCLISubCommand() {
 installDifferentSpotterCLIVersionIfNeeded
 
 # construct the CLI command
-buildMainCLICommand
-buildScanCLISubCommand
+buildScanCLICommand
 
 # run the CLI command
-${main_command} ${scan_command}
+${scan_command}

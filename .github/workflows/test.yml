@@ -23,8 +23,9 @@ jobs:
           parse_values: true
           display_level: error
           ansible_version: 2.13
-          spotter_username: ${{ secrets.SPOTTER_USERNAME }}
-          spotter_password: ${{ secrets.SPOTTER_PASSWORD }}
+        env:
+          SPOTTER_USERNAME: ${{ secrets.SPOTTER_USERNAME }}
+          SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}
         continue-on-error: true
 
       - name: Run Ansible scan without errors
