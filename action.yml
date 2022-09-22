@@ -1,12 +1,15 @@
 name: 'Steampunk Spotter'
-description: 'Scan your Ansible artifacts using Steampunk Spotter.'
+description: 'Scan your Ansible content using Steampunk Spotter.'
 author: 'XLAB Steampunk'
+branding:
+  icon: "target"
+  color: "red"
 inputs:
   cli_version:
     description: 'The version of the Steampunk Spotter CLI. If not provided, the latest version is used.'
     required: false
   paths:
-    description: 'List of paths to Ansible artifacts to be scanned. If not provided, the whole repository is scanned.'
+    description: 'List of paths to Ansible content files to be scanned. If not provided, the whole repository is scanned.'
     required: false
     default: "."
   parse_values:
@@ -14,7 +17,7 @@ inputs:
     required: false
     default: "false"
   display_level:
-    description: 'Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints).'
+    description: 'Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error.'
     required: false
     default: "hint"
   ansible_version:
