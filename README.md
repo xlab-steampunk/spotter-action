@@ -1,5 +1,5 @@
 # GitHub Actions for Steampunk Spotter
-This repository contains GitHub Action for [Steampunk Spotter].
+A GitHub Action for scanning your Ansible content with [Steampunk Spotter].
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -25,7 +25,7 @@ To integrate [Steampunk Spotter] with your GitHub CI/CD pipeline, you have to
 specify the name of this repository with a tag number as a step within your 
 YAML workflow file.
 
-For example, inside your `.github/workflows/<you-name-it>.yml` file:
+For example, inside your `.github/workflows/ci.yml` file:
 
 ```yaml
 steps:
@@ -36,18 +36,18 @@ steps:
 ### Inputs
 The action accepts the following inputs:
 
-| Name               | Required | Default  | Description                                                                                                                   |
-|--------------------|----------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| `cli_version`      | no       | /        | The version of the [steampunk-spotter]. If not provided, the latest version is used.                                          |
-| `paths`            | no       | .        | List of paths to Ansible artifacts to be scanned. If not provided, the whole repository is scanned.                           |
-| `parse_values`     | no       | false    | If true, it parses values from Ansible task parameters and sends them for scanning.                                           |                                
-| `display_level`    | no       | hint     | Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). |
-| `ansible_version`  | no       | /        | Ansible version to use for scanning. If not provided, all Ansible versions are considered for scanning.                       |
+| Name               | Required | Default  | Description                                                                                                                                                            |
+|--------------------|----------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `cli_version`      | no       | /        | The version of the [steampunk-spotter]. If not provided, the latest version is used.                                                                                   |
+| `paths`            | no       | .        | List of paths to Ansible content files to be scanned. If not provided, the whole repository is scanned.                                                                |
+| `parse_values`     | no       | false    | If true, it parses values from Ansible task parameters and sends them for scanning.                                                                                    |                                
+| `display_level`    | no       | hint     | Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error. |
+| `ansible_version`  | no       | /        | Ansible version to use for scanning. If not provided, all Ansible versions are considered for scanning.                                                                |
 
 ### Outputs
 The action produces the following outputs:
 
-* `output`: Output from scanning (from spotter scan CLI command).
+* `output`: Scan results from scanning your Ansible content using the `spotter scan` command.
 
 ### Environment variables
 The action will take into account the following environment variables:
@@ -79,9 +79,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@master
 
-    - name: Scan Ansible artifacts with different inputs
+    - name: Scan Ansible content with different inputs
       uses: xlab-steampunk/spotter-action@master
       with:
         paths: playbook.yaml
