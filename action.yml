@@ -35,7 +35,7 @@ outputs:
     description: "Output from scanning (from spotter scan CLI command)."
 runs:
   using: "docker"
-  image: "Dockerfile"
+  image: "docker://ghcr.io/xlab-steampunk/spotter-action:latest"
   args:
     - ${{ inputs.cli_version }}
     - ${{ inputs.paths }}
