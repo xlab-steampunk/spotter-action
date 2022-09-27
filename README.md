@@ -1,4 +1,4 @@
-# GitHub Actions for Steampunk Spotter
+# GitHub Action for Steampunk Spotter
 A GitHub Action for scanning your Ansible content with [Steampunk Spotter].
 
 ## Table of Contents
@@ -13,8 +13,8 @@ A GitHub Action for scanning your Ansible content with [Steampunk Spotter].
 ## Introduction
 [Steampunk Spotter] provides an Assisted Automation Writing tool that analyzes 
 and offers recommendations for your Ansible Playbooks.
-This GitHub Action will enable the use of [steampunk-spotter] CLI within the 
-GitHub CI/CD workflows.
+This GitHub Action allows you to use [steampunk-spotter] CLI within GitHub 
+CI/CD workflows.
 
 ## Prerequisites
 You will need to create a [new Steampunk Spotter account] to be able to use 
@@ -36,13 +36,15 @@ steps:
 ### Inputs
 The action accepts the following inputs:
 
-| Name               | Required | Default  | Description                                                                                                                                                            |
-|--------------------|----------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `cli_version`      | no       | /        | The version of the [steampunk-spotter]. If not provided, the latest version is used.                                                                                   |
-| `paths`            | no       | .        | List of paths to Ansible content files to be scanned. If not provided, the whole repository is scanned.                                                                |
-| `parse_values`     | no       | false    | If true, it parses values from Ansible task parameters and sends them for scanning.                                                                                    |                                
-| `display_level`    | no       | hint     | Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error. |
-| `ansible_version`  | no       | /        | Ansible version to use for scanning. If not provided, all Ansible versions are considered for scanning.                                                                |
+| Name              | Required | Default | Description                                                                                                                                                                        |
+|-------------------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `cli_version`     | no       | /       | The version of the [steampunk-spotter]. If not specified, the latest version is used.                                                                                              |
+| `paths`           | no       | .       | List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned.                                                                           |
+| `project_id`      | no       | /       | ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used. |
+| `upload_values`   | no       | false   | Parses and uploads values from Ansible task parameters to the backend.                                                                                                             |                                
+| `upload_metadata` | no       | false   | Uploads metadata (i.e., file names, line and column numbers) to the backend.                                                                                                       |                                
+| `display_level`   | no       | hint    | Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error.             |
+| `ansible_version` | no       | /       | Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning.                                                                           |
 
 ### Outputs
 The action produces the following outputs:
@@ -56,41 +58,47 @@ The action will take into account the following environment variables:
 * `SPOTTER_USERNAME`: Steampunk Spotter account password.
 
 ### Examples
-Here are some examples for how to use this GH Action.
+Here are some examples of how to use this GH Action.
 
 Minimal example that scans the whole repository would look like this:
 
 ```yaml
-steps:
-- uses: actions/checkout@master
-- uses: xlab-steampunk/spotter-action@master
-  env:
-    SPOTTER_USERNAME: ${{ secrets.SPOTTER_TEST_USERNAME }}
-    SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}
-```
-
-More complex example with multiple action inputs is the following:
-
-```yaml
-name: Example CI/CD workflow for Steampunk Spotter
+name: Minimal CI/CD workflow for Steampunk Spotter
 on: [push]
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@master
+      - uses: actions/checkout@master
+      - uses: xlab-steampunk/spotter-action@master
+        env:
+          SPOTTER_USERNAME: ${{ secrets.SPOTTER_USERNAME }}
+          SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}
+```
 
-    - name: Scan Ansible content with different inputs
-      uses: xlab-steampunk/spotter-action@master
-      with:
-        paths: playbook.yaml
-        parse_values: true
-        display_level: error
-        ansible_version: 2.13
-      env:
-        SPOTTER_USERNAME: ${{ secrets.SPOTTER_TEST_USERNAME }}
-        SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}
+A more complex example with multiple action inputs is the following:
+
+```yaml
+name: More complex CI/CD workflow for Steampunk Spotter
+on: [push]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@master
+
+      - name: Scan Ansible content with different inputs
+        uses: xlab-steampunk/spotter-action@master
+        with:
+          paths: playbook.yaml
+          upload_values: true
+          upload_metadata: true
+          display_level: error
+          ansible_version: 2.13
+        env:
+          SPOTTER_USERNAME: ${{ secrets.SPOTTER_USERNAME }}
+          SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}
 ```
 
 ## Acknowledgement
