@@ -1,11 +1,13 @@
-#!/bin/bash
+#!/bin/sh
 
 # set CLI arguments
 cli_version="$1"
 paths="$2"
-parse_values="$3"
-display_level="$4"
-ansible_version="$5"
+project_id="$3"
+upload_values="$4"
+upload_metadata="$5"
+display_level="$6"
+ansible_version="$7"
 
 installDifferentSpotterCLIVersionIfNeeded() {
   if [ -n "$cli_version" ]; then
@@ -16,8 +18,16 @@ installDifferentSpotterCLIVersionIfNeeded() {
 buildScanCLICommand() {
   scan_command="spotter scan"
 
-  if [ "$parse_values" == "true" ]; then
-    scan_command="${scan_command} --parse-values"
+  if [ "$project_id" = "true" ]; then
+    scan_command="${scan_command} --project-id ${project_id}"
+  fi
+
+  if [ "$upload_values" = "true" ]; then
+    scan_command="${scan_command} --upload-values"
+  fi
+
+  if [ "$upload_metadata" = "true" ]; then
+    scan_command="${scan_command} --upload-metadata"
   fi
 
   if [ -n "$display_level" ]; then
