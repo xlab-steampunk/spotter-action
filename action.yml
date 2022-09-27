@@ -1,37 +1,46 @@
-name: 'Steampunk Spotter'
-description: 'Scan your Ansible content using Steampunk Spotter.'
-author: 'XLAB Steampunk'
+name: "Steampunk Spotter"
+description: "Scan your Ansible content using Steampunk Spotter."
+author: "XLAB Steampunk"
 branding:
   icon: "target"
   color: "red"
 inputs:
   cli_version:
-    description: 'The version of the Steampunk Spotter CLI. If not provided, the latest version is used.'
+    description: "The version of the Steampunk Spotter CLI. If not specified, the latest version is used."
     required: false
   paths:
-    description: 'List of paths to Ansible content files to be scanned. If not provided, the whole repository is scanned.'
+    description: "List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned."
     required: false
     default: "."
-  parse_values:
-    description: 'If true, it parses values from Ansible task parameters and sends them for scanning.'
+  project_id:
+    description: "ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used."
+    required: false
+  upload_values:
+    description: "Parses and uploads values from Ansible task parameters to the backend."
+    required: false
+    default: "false"
+  upload_metadata:
+    description: "Uploads metadata (i.e., file names, line and column numbers) to the backend."
     required: false
     default: "false"
   display_level:
-    description: 'Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error.'
+    description: "Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error."
     required: false
     default: "hint"
   ansible_version:
-    description: 'Ansible version to use for scanning. If not provided, all Ansible versions are considered for scanning.'
+    description: "Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning."
     required: false
 outputs:
   output:
-    description: 'Output from scanning (from spotter scan CLI command).'
+    description: "Output from scanning (from spotter scan CLI command)."
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   args:
     - ${{ inputs.cli_version }}
     - ${{ inputs.paths }}
-    - ${{ inputs.parse_values }}
+    - ${{ inputs.project_id }}
+    - ${{ inputs.upload_values }}
+    - ${{ inputs.upload_metadata }}
     - ${{ inputs.display_level }}
     - ${{ inputs.ansible_version }}
