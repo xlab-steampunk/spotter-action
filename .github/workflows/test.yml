@@ -1,10 +1,8 @@
-name: "Tests"
-on:
-  push:
-  pull_request:
+name: test
+on: push
 jobs:
-  tests:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout this repository
         uses: actions/checkout@v3
@@ -20,7 +18,8 @@ jobs:
         uses: ./
         with:
           paths: tests/playbook-with-errors.yml
-          parse_values: true
+          upload_values: true
+          upload_metadata: true
           display_level: error
           ansible_version: 2.13
         env:
