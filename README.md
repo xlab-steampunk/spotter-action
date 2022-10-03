@@ -38,7 +38,6 @@ The action accepts the following inputs:
 
 | Name              | Required | Default | Description                                                                                                                                                                        |
 |-------------------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `cli_version`     | no       | /       | The version of the [steampunk-spotter]. If not specified, the latest version is used.                                                                                              |
 | `paths`           | no       | .       | List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned.                                                                           |
 | `project_id`      | no       | /       | ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used. |
 | `upload_values`   | no       | false   | Parses and uploads values from Ansible task parameters to the backend.                                                                                                             |                                
