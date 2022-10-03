@@ -5,9 +5,6 @@ branding:
   icon: "target"
   color: "red"
 inputs:
-  cli_version:
-    description: "The version of the Steampunk Spotter CLI. If not specified, the latest version is used."
-    required: false
   paths:
     description: "List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned."
     required: false
@@ -37,7 +34,6 @@ runs:
   using: "docker"
   image: "docker://ghcr.io/xlab-steampunk/spotter-action:latest"
   args:
-    - ${{ inputs.cli_version }}
     - ${{ inputs.paths }}
     - ${{ inputs.project_id }}
     - ${{ inputs.upload_values }}

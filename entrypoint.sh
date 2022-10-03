@@ -1,19 +1,12 @@
 #!/bin/sh
 
 # set CLI arguments
-cli_version="$1"
-paths="$2"
-project_id="$3"
-upload_values="$4"
-upload_metadata="$5"
-display_level="$6"
-ansible_version="$7"
-
-installDifferentSpotterCLIVersionIfNeeded() {
-  if [ -n "$cli_version" ]; then
-    pip install --upgrade steampunk-spotter=="${cli_version}"
-  fi
-}
+paths="$1"
+project_id="$2"
+upload_values="$3"
+upload_metadata="$4"
+display_level="$5"
+ansible_version="$6"
 
 buildScanCLICommand() {
   scan_command="spotter scan"
@@ -42,9 +35,6 @@ buildScanCLICommand() {
     scan_command="${scan_command} $paths"
   fi
 }
-
-# install different CLI if version is specified
-installDifferentSpotterCLIVersionIfNeeded
 
 # construct the CLI command
 buildScanCLICommand
