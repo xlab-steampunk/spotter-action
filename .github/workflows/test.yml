@@ -21,6 +21,7 @@ jobs:
           upload_values: true
           upload_metadata: true
           display_level: error
+          no_docs_url: true
           ansible_version: 2.13
         env:
           SPOTTER_USERNAME: ${{ secrets.SPOTTER_USERNAME }}
@@ -32,6 +33,7 @@ jobs:
         with:
           paths: tests/playbook-no-errors.yml
           ansible_version: 2.13
+          display_level: error
         env:
           SPOTTER_USERNAME: ${{ secrets.SPOTTER_USERNAME }}
           SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}
