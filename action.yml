@@ -24,6 +24,10 @@ inputs:
     description: "Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error."
     required: false
     default: "hint"
+  no_docs_url:
+    description: "Omits documentation URLs from the output."
+    required: false
+    default: "false"
   ansible_version:
     description: "Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning."
     required: false
@@ -39,4 +43,5 @@ runs:
     - ${{ inputs.upload_values }}
     - ${{ inputs.upload_metadata }}
     - ${{ inputs.display_level }}
+    - ${{ inputs.no_docs_url }}
     - ${{ inputs.ansible_version }}

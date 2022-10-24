@@ -6,7 +6,8 @@ project_id="$2"
 upload_values="$3"
 upload_metadata="$4"
 display_level="$5"
-ansible_version="$6"
+no_docs_url="$6"
+ansible_version="$7"
 
 buildScanCLICommand() {
   scan_command="spotter scan"
@@ -25,6 +26,10 @@ buildScanCLICommand() {
 
   if [ -n "$display_level" ]; then
     scan_command="${scan_command} --display-level ${display_level}"
+  fi
+
+  if [ "$no_docs_url" = "true" ]; then
+    scan_command="${scan_command} --no-docs-url"
   fi
 
   if [ -n "$ansible_version" ]; then

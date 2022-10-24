@@ -43,6 +43,7 @@ The action accepts the following inputs:
 | `upload_values`   | no       | false   | Parses and uploads values from Ansible task parameters to the backend.                                                                                                             |                                
 | `upload_metadata` | no       | false   | Uploads metadata (i.e., file names, line and column numbers) to the backend.                                                                                                       |                                
 | `display_level`   | no       | hint    | Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error.             |
+| `no_docs_url`     | no       | false   | Omits documentation URLs from the output.                                                                                                                                          |  
 | `ansible_version` | no       | /       | Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning.                                                                           |
 
 ### Outputs
@@ -94,6 +95,7 @@ jobs:
           upload_values: true
           upload_metadata: true
           display_level: error
+          no_docs_url: true
           ansible_version: 2.13
         env:
           SPOTTER_USERNAME: ${{ secrets.SPOTTER_USERNAME }}
