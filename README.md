@@ -11,18 +11,18 @@ A GitHub Action for scanning your Ansible content with [Steampunk Spotter].
 - [Acknowledgement](#acknowledgement)
 
 ## Introduction
-[Steampunk Spotter] provides an Assisted Automation Writing tool that analyzes 
+[Steampunk Spotter] provides an Assisted Automation Writing tool that analyzes
 and offers recommendations for your Ansible Playbooks.
-This GitHub Action allows you to use [steampunk-spotter] CLI within GitHub 
+This GitHub Action allows you to use [steampunk-spotter] CLI within GitHub
 CI/CD workflows.
 
 ## Prerequisites
-You will need to create a [new Steampunk Spotter account] to be able to use 
+You will need to create a [new Steampunk Spotter account] to be able to use
 this action.
 
 ## Usage
-To integrate [Steampunk Spotter] with your GitHub CI/CD pipeline, you have to 
-specify the name of this repository with a tag number as a step within your 
+To integrate [Steampunk Spotter] with your GitHub CI/CD pipeline, you have to
+specify the name of this repository with a tag number as a step within your
 YAML workflow file.
 
 For example, inside your `.github/workflows/ci.yml` file:
@@ -30,7 +30,7 @@ For example, inside your `.github/workflows/ci.yml` file:
 ```yaml
 steps:
 - uses: actions/checkout@master
-- uses: xlab-steampunk/spotter-action@master
+- uses: xlab-steampunk/spotter-action@<version>
 ```
 
 ### Inputs
@@ -54,8 +54,13 @@ The action produces the following outputs:
 ### Environment variables
 The action will take into account the following environment variables:
 
-* `SPOTTER_USERNAME`: Steampunk Spotter account username.
-* `SPOTTER_USERNAME`: Steampunk Spotter account password.
+* `SPOTTER_API_TOKEN`: Steampunk Spotter API token (can be generated in the 
+   user settings within the Spotter App);
+* `SPOTTER_USERNAME`: Steampunk Spotter username;
+* `SPOTTER_PASSWORD`: Steampunk Spotter password.
+
+We encourage you to authenticate by setting `SPOTTER_API_TOKEN` instead of old
+`SPOTTER_USERNAME` and `SPOTTER_PASSWORD` environment variables.
 
 ### Examples
 Here are some examples of how to use this GH Action.
@@ -69,11 +74,10 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: xlab-steampunk/spotter-action@master
+      - uses: actions/checkout@v3
+      - uses: xlab-steampunk/spotter-action@<version>
         env:
-          SPOTTER_USERNAME: ${{ secrets.SPOTTER_USERNAME }}
-          SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}
+          SPOTTER_API_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
 ```
 
 A more complex example with multiple action inputs is the following:
@@ -86,25 +90,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
 
       - name: Scan Ansible content with different inputs
-        uses: xlab-steampunk/spotter-action@master
+        uses: xlab-steampunk/spotter-action@<version>
         with:
           paths: playbook.yaml
           upload_values: true
           upload_metadata: true
           display_level: error
           no_docs_url: true
-          ansible_version: 2.13
+          ansible_version: 2.14
         env:
-          SPOTTER_USERNAME: ${{ secrets.SPOTTER_USERNAME }}
-          SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}
+          SPOTTER_API_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
 ```
 
 ## Acknowledgement
-This tool was created by [XLAB Steampunk], IT automation specialist and 
-leading expert in building Enterprise Ansible Collections.
+This GitHub Action was created by [XLAB Steampunk], IT automation specialist
+and leading expert in building Enterprise Ansible Collections.
 
 [Steampunk Spotter]: https://steampunk.si/spotter/
 [steampunk-spotter]: https://pypi.org/project/steampunk-spotter/
