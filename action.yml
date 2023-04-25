@@ -12,11 +12,11 @@ inputs:
   project_id:
     description: "ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used."
     required: false
-  upload_values:
+  include_values:
     description: "Parses and uploads values from Ansible task parameters to the backend."
     required: false
     default: "false"
-  upload_metadata:
+  include_metadata:
     description: "Uploads metadata (i.e., file names, line and column numbers) to the backend."
     required: false
     default: "false"
@@ -31,6 +31,10 @@ inputs:
   ansible_version:
     description: "Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning."
     required: false
+  profile:
+    description: "Sets profile with selected set of checks to be used for scanning."
+    required: false
+    default: "default"
 outputs:
   output:
     description: "Output from scanning (from spotter scan CLI command)."
@@ -40,8 +44,9 @@ runs:
   args:
     - ${{ inputs.paths }}
     - ${{ inputs.project_id }}
-    - ${{ inputs.upload_values }}
-    - ${{ inputs.upload_metadata }}
+    - ${{ inputs.include_values }}
+    - ${{ inputs.include_metadata }}
     - ${{ inputs.display_level }}
     - ${{ inputs.no_docs_url }}
     - ${{ inputs.ansible_version }}
+    - ${{ inputs.profile }}
