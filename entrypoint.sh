@@ -3,11 +3,12 @@
 # set CLI arguments
 paths="$1"
 project_id="$2"
-upload_values="$3"
-upload_metadata="$4"
+include_values="$3"
+include_metadata="$4"
 display_level="$5"
 no_docs_url="$6"
 ansible_version="$7"
+profile="$8"
 
 buildScanCLICommand() {
   scan_command="spotter scan"
@@ -16,12 +17,12 @@ buildScanCLICommand() {
     scan_command="${scan_command} --project-id ${project_id}"
   fi
 
-  if [ "$upload_values" = "true" ]; then
-    scan_command="${scan_command} --upload-values"
+  if [ "$include_values" = "true" ]; then
+    scan_command="${scan_command} --include-values"
   fi
 
-  if [ "$upload_metadata" = "true" ]; then
-    scan_command="${scan_command} --upload-metadata"
+  if [ "$include_metadata" = "true" ]; then
+    scan_command="${scan_command} --include-metadata"
   fi
 
   if [ -n "$display_level" ]; then
@@ -33,7 +34,11 @@ buildScanCLICommand() {
   fi
 
   if [ -n "$ansible_version" ]; then
-    scan_command="${scan_command} --option ansible_version=${ansible_version}"
+    scan_command="${scan_command} --ansible-version ${ansible_version}"
+  fi
+
+  if [ -n "$profile" ]; then
+    scan_command="${scan_command} --profile ${profile}"
   fi
 
   if [ -n "$paths" ]; then
