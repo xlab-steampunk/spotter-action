@@ -35,6 +35,13 @@ inputs:
     description: "Sets profile with selected set of checks to be used for scanning."
     required: false
     default: "default"
+  custom_policies_path:
+    description: "Path to the file or folder with custom OPA policies written in Rego Language (enterprise feature)."
+    required: false
+  custom_policies_clear:
+    description: "Clears OPA policies for custom Spotter checks after scanning (enterprise feature)."
+    required: false
+    default: "false"
 outputs:
   output:
     description: "Output from scanning (from spotter scan CLI command)."
@@ -50,3 +57,5 @@ runs:
     - ${{ inputs.no_docs_url }}
     - ${{ inputs.ansible_version }}
     - ${{ inputs.profile }}
+    - ${{ inputs.custom_policies_path }}
+    - ${{ inputs.custom_policies_clear }}
