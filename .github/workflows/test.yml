@@ -17,11 +17,12 @@ jobs:
         uses: ./
         with:
           paths: tests/playbook-with-errors.yml
-          upload_values: true
-          upload_metadata: true
+          include_values: true
+          include_metadata: true
           display_level: error
           no_docs_url: true
           ansible_version: 2.14
+          profile: full
         env:
           SPOTTER_API_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
         continue-on-error: true
