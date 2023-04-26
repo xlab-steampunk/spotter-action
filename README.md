@@ -11,7 +11,7 @@ A GitHub Action for scanning your Ansible content with [Steampunk Spotter].
 - [Acknowledgement](#acknowledgement)
 
 ## Introduction
-[Steampunk Spotter] provides an Assisted Automation Writing tool that analyzes
+[Steampunk Spotter] provides an Ansible Playbook Scanning Tool that analyzes
 and offers recommendations for your Ansible Playbooks.
 This GitHub Action allows you to use [steampunk-spotter] CLI within GitHub
 CI/CD workflows.
@@ -36,15 +36,18 @@ steps:
 ### Inputs
 The action accepts the following inputs:
 
-| Name              | Required | Default | Description                                                                                                                                                                        |
-|-------------------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `paths`           | no       | .       | List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned.                                                                           |
-| `project_id`      | no       | /       | ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used. |
-| `upload_values`   | no       | false   | Parses and uploads values from Ansible task parameters to the backend.                                                                                                             |                                
-| `upload_metadata` | no       | false   | Uploads metadata (i.e., file names, line and column numbers) to the backend.                                                                                                       |                                
-| `display_level`   | no       | hint    | Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error.             |
-| `no_docs_url`     | no       | false   | Omits documentation URLs from the output.                                                                                                                                          |  
-| `ansible_version` | no       | /       | Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning.                                                                           |
+| Name                    | Required | Default | Description                                                                                                                                                                        |
+|-------------------------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `paths`                 | no       | .       | List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned.                                                                           |
+| `project_id`            | no       | /       | ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used. |
+| `upload_values`         | no       | false   | Parses and uploads values from Ansible task parameters to the backend.                                                                                                             |                                
+| `upload_metadata`       | no       | false   | Uploads metadata (i.e., file names, line and column numbers) to the backend.                                                                                                       |                                
+| `display_level`         | no       | hint    | Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error.             |
+| `no_docs_url`           | no       | false   | Omits documentation URLs from the output.                                                                                                                                          |  
+| `ansible_version`       | no       | /       | Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning.                                                                           |
+| `profile`               | no       | /       | Sets profile with selected set of checks to be used for scanning.                                                                                                                  |
+| `custom_policies_path`  | no       | /       | Path to the file or folder with custom OPA policies written in Rego Language (enterprise feature).                                                                                 |
+| `custom_policies_clear` | no       | /       | Clears OPA policies for custom Spotter checks after scanning (enterprise feature).                                                                                                 |
 
 ### Outputs
 The action produces the following outputs:
@@ -96,11 +99,12 @@ jobs:
         uses: xlab-steampunk/spotter-action@<version>
         with:
           paths: playbook.yaml
-          upload_values: true
-          upload_metadata: true
+          include_values: true
+          include_metadata: true
           display_level: error
           no_docs_url: true
           ansible_version: 2.14
+          profile: full
         env:
           SPOTTER_API_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
 ```
