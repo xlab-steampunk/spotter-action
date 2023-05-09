@@ -38,14 +38,19 @@ The action accepts the following inputs:
 
 | Name                    | Required | Default | Description                                                                                                                                                                        |
 |-------------------------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `endpoint`              | no       | /       | Steampunk Spotter API endpoint (instead of default https://api.spotter.steampunk.si/api).                                                                                          |
+| `api_token`             | no       | /       | Steampunk Spotter API token (can be generated in the user settings within the Spotter App).                                                                                        |
+| `username`              | no       | /       | Steampunk Spotter username (this is an old auth method, use API token if possible).                                                                                                |
+| `password`              | no       | /       | Steampunk Spotter password (this is an old auth method, use API token if possible).                                                                                                |
 | `paths`                 | no       | .       | List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned.                                                                           |
 | `project_id`            | no       | /       | ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used. |
-| `upload_values`         | no       | false   | Parses and uploads values from Ansible task parameters to the backend.                                                                                                             |                                
-| `upload_metadata`       | no       | false   | Uploads metadata (i.e., file names, line and column numbers) to the backend.                                                                                                       |                                
+| `upload_values`         | no       | false   | Parses and uploads values from Ansible task parameters to the backend.                                                                                                             |
+| `upload_metadata`       | no       | false   | Uploads metadata (i.e., file names, line and column numbers) to the backend.                                                                                                       |
 | `display_level`         | no       | hint    | Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error.             |
-| `no_docs_url`           | no       | false   | Omits documentation URLs from the output.                                                                                                                                          |  
+| `no_docs_url`           | no       | false   | Omits documentation URLs from the output.                                                                                                                                          |
 | `ansible_version`       | no       | /       | Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning.                                                                           |
 | `profile`               | no       | /       | Sets profile with selected set of checks to be used for scanning.                                                                                                                  |
+| `skip_checks`           | no       | /       | Skips checks with specified IDs. IDs should be comma-separated, space-separated or newline-separated and can be found in the check catalog withing the Spotter App.                |
 | `custom_policies_path`  | no       | /       | Path to the file or folder with custom OPA policies written in Rego Language (enterprise feature).                                                                                 |
 | `custom_policies_clear` | no       | /       | Clears OPA policies for custom Spotter checks after scanning (enterprise feature).                                                                                                 |
 
@@ -57,7 +62,9 @@ The action produces the following outputs:
 ### Environment variables
 The action will take into account the following environment variables:
 
-* `SPOTTER_API_TOKEN`: Steampunk Spotter API token (can be generated in the 
+* `SPOTTER_ENDPOINT`: Steampunk Spotter API endpoint (instead of default
+  https://api.spotter.steampunk.si/api).
+* `SPOTTER_API_TOKEN`: Steampunk Spotter API token (can be generated in the
    user settings within the Spotter App);
 * `SPOTTER_USERNAME`: Steampunk Spotter username;
 * `SPOTTER_PASSWORD`: Steampunk Spotter password.
@@ -98,6 +105,8 @@ jobs:
       - name: Scan Ansible content with different inputs
         uses: xlab-steampunk/spotter-action@<version>
         with:
+          endpoint: https://api.spotter.steampunk.si/api
+          api_token: ${{ secrets.SPOTTER_API_TOKEN }}
           paths: playbook.yaml
           include_values: true
           include_metadata: true
@@ -105,8 +114,7 @@ jobs:
           no_docs_url: true
           ansible_version: 2.14
           profile: full
-        env:
-          SPOTTER_API_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
+          skip_checks: E001,E1300
 ```
 
 ## Acknowledgement
