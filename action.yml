@@ -1,10 +1,22 @@
 name: "Steampunk Spotter"
-description: "Scan your Ansible content using Steampunk Spotter."
+description: "Steampunk Spotter provides an Ansible Playbook Scanning Tool that analyzes and offers recommendations for your Ansible Playbooks."
 author: "XLAB Steampunk"
 branding:
   icon: "target"
   color: "red"
 inputs:
+  endpoint:
+    description: "Steampunk Spotter API endpoint (instead of default https://api.spotter.steampunk.si/api)."
+    required: false
+  api_token:
+    description: "Steampunk Spotter API token."
+    required: false
+  username:
+    description: "Steampunk Spotter username."
+    required: false
+  password:
+    description: "Steampunk Spotter password."
+    required: false
   paths:
     description: "List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned."
     required: false
@@ -35,6 +47,9 @@ inputs:
     description: "Sets profile with selected set of checks to be used for scanning."
     required: false
     default: "default"
+  skip_checks:
+    description: "Skips checks with specified IDs."
+    required: false
   custom_policies_path:
     description: "Path to the file or folder with custom OPA policies written in Rego Language (enterprise feature)."
     required: false
@@ -49,6 +64,10 @@ runs:
   using: "docker"
   image: "docker://ghcr.io/xlab-steampunk/spotter-action:latest"
   args:
+    - ${{ inputs.endpoint }}
+    - ${{ inputs.api_token }}
+    - ${{ inputs.username }}
+    - ${{ inputs.password }}
     - ${{ inputs.paths }}
     - ${{ inputs.project_id }}
     - ${{ inputs.include_values }}
