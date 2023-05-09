@@ -1,20 +1,43 @@
 #!/bin/sh
 
 # set CLI arguments
-paths="$1"
-project_id="$2"
-include_values="$3"
-include_metadata="$4"
-display_level="$5"
-no_docs_url="$6"
-ansible_version="$7"
-profile="$8"
-custom_policies_path="$9"
-custom_policies_clear="${10}"
+endpoint="$1"
+api_token="$2"
+username="$3"
+password="$4"
+paths="$5"
+project_id="$6"
+include_values="$7"
+include_metadata="$8"
+display_level="$9"
+no_docs_url="${10}"
+ansible_version="${11}"
+profile="${12}"
+skip_checks="${13}"
+custom_policies_path="${14}"
+custom_policies_clear="${15}"
 
-# helper functions for building CLI commands
+# build global Spotter CLI command
+global_spotter_command="spotter"
+if [ -n "$endpoint" ]; then
+  global_spotter_command="${global_spotter_command} --endpoint ${endpoint}"
+fi
+
+if [ -n "$api_token" ]; then
+  global_spotter_command="${global_spotter_command} --api-token ${api_token}"
+fi
+
+if [ -n "$username" ]; then
+  global_spotter_command="${global_spotter_command} --username ${username}"
+fi
+
+if [ -n "$password" ]; then
+  global_spotter_command="${global_spotter_command} --password ${password}"
+fi
+
+# helper functions for building CLI subcommands
 buildSetPoliciesCommand() {
-  set_policies_command="spotter set-policies"
+  set_policies_command="${global_spotter_command} set-policies"
 
   if [ -n "$project_id" ]; then
     set_policies_command="${set_policies_command} --project-id ${project_id}"
@@ -26,7 +49,7 @@ buildSetPoliciesCommand() {
 }
 
 buildClearPoliciesCommand() {
-  clear_policies_command="spotter clear-policies"
+  clear_policies_command="${global_spotter_command} clear-policies"
 
   if [ -n "$project_id" ]; then
     clear_policies_command="${clear_policies_command} --project-id ${project_id}"
@@ -34,7 +57,7 @@ buildClearPoliciesCommand() {
 }
 
 buildScanCLICommand() {
-  scan_command="spotter scan"
+  scan_command="${global_spotter_command} scan"
 
   if [ "$project_id" = "true" ]; then
     scan_command="${scan_command} --project-id ${project_id}"
@@ -62,6 +85,12 @@ buildScanCLICommand() {
 
   if [ -n "$profile" ]; then
     scan_command="${scan_command} --profile ${profile}"
+  fi
+
+  if [ -n "$skip_checks" ]; then
+    skip_checks=$(printf "%s" "$skip_checks" | tr "\n" ",")
+    set -- "${scan_command}" "--skip-checks" "\"""${skip_checks}""\""
+    scan_command="$*"
   fi
 
   if [ -n "$paths" ]; then
