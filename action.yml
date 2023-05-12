@@ -1,5 +1,5 @@
 name: "Steampunk Spotter"
-description: "Steampunk Spotter provides an Ansible Playbook Scanning Tool that analyzes and offers recommendations for your Ansible Playbooks."
+description: "An Ansible Playbook Scanning Tool that analyzes and offers recommendations for your Ansible Playbooks."
 author: "XLAB Steampunk"
 branding:
   icon: "target"
