@@ -76,5 +76,6 @@ runs:
     - ${{ inputs.no_docs_url }}
     - ${{ inputs.ansible_version }}
     - ${{ inputs.profile }}
+    - ${{ inputs.skip_checks }}
     - ${{ inputs.custom_policies_path }}
     - ${{ inputs.custom_policies_clear }}
