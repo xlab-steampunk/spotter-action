@@ -17,6 +17,9 @@ inputs:
   password:
     description: "Steampunk Spotter password."
     required: false
+  config:
+    description: "Path to JSON/YAML configuration file."
+    required: false
   paths:
     description: "List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned."
     required: false
@@ -50,6 +53,9 @@ inputs:
   skip_checks:
     description: "Skips checks with specified IDs."
     required: false
+  enforce_checks:
+    description: "Enforce checks with specified IDs."
+    required: false
   custom_policies_path:
     description: "Path to the file or folder with custom OPA policies written in Rego Language (enterprise feature)."
     required: false
@@ -68,6 +74,7 @@ runs:
     - ${{ inputs.api_token }}
     - ${{ inputs.username }}
     - ${{ inputs.password }}
+    - ${{ inputs.config }}
     - ${{ inputs.paths }}
     - ${{ inputs.project_id }}
     - ${{ inputs.include_values }}
@@ -77,5 +84,6 @@ runs:
     - ${{ inputs.ansible_version }}
     - ${{ inputs.profile }}
     - ${{ inputs.skip_checks }}
+    - ${{ inputs.enforce_checks }}
     - ${{ inputs.custom_policies_path }}
     - ${{ inputs.custom_policies_clear }}

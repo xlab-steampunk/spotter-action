@@ -5,17 +5,19 @@ endpoint="$1"
 api_token="$2"
 username="$3"
 password="$4"
-paths="$5"
-project_id="$6"
-include_values="$7"
-include_metadata="$8"
-display_level="$9"
-no_docs_url="${10}"
-ansible_version="${11}"
-profile="${12}"
-skip_checks="${13}"
-custom_policies_path="${14}"
-custom_policies_clear="${15}"
+config="$5"
+paths="$6"
+project_id="$7"
+include_values="$8"
+include_metadata="$9"
+display_level="${10}"
+no_docs_url="${11}"
+ansible_version="${12}"
+profile="${13}"
+skip_checks="${14}"
+enforce_checks="${15}"
+custom_policies_path="${16}"
+custom_policies_clear="${17}"
 
 # build global Spotter CLI command
 global_spotter_command="spotter"
@@ -59,6 +61,10 @@ buildClearPoliciesCommand() {
 buildScanCLICommand() {
   scan_command="${global_spotter_command} scan"
 
+  if [ "$config" = "true" ]; then
+    scan_command="${scan_command} --config ${config}"
+  fi
+
   if [ "$project_id" = "true" ]; then
     scan_command="${scan_command} --project-id ${project_id}"
   fi
@@ -90,6 +96,12 @@ buildScanCLICommand() {
   if [ -n "$skip_checks" ]; then
     skip_checks=$(printf "%s" "$skip_checks" | tr "\n" ",")
     set -- "${scan_command}" "--skip-checks" "\"""${skip_checks}""\""
+    scan_command="$*"
+  fi
+
+  if [ -n "$enforce_checks" ]; then
+    enforce_checks=$(printf "%s" "$enforce_checks" | tr "\n" ",")
+    set -- "${scan_command}" "--enforce-checks" "\"""${enforce_checks}""\""
     scan_command="$*"
   fi
 
