@@ -42,6 +42,7 @@ The action accepts the following inputs:
 | `api_token`             | no       | /       | Steampunk Spotter API token (can be generated in the user settings within the Spotter App).                                                                                        |
 | `username`              | no       | /       | Steampunk Spotter username (this is an old auth method, use API token if possible).                                                                                                |
 | `password`              | no       | /       | Steampunk Spotter password (this is an old auth method, use API token if possible).                                                                                                |
+| `config`                | no       | /       | Path to JSON/YAML configuration file.                                                                                                                                              |
 | `paths`                 | no       | .       | List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned.                                                                           |
 | `project_id`            | no       | /       | ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used. |
 | `upload_values`         | no       | false   | Parses and uploads values from Ansible task parameters to the backend.                                                                                                             |
@@ -50,7 +51,8 @@ The action accepts the following inputs:
 | `no_docs_url`           | no       | false   | Omits documentation URLs from the output.                                                                                                                                          |
 | `ansible_version`       | no       | /       | Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning.                                                                           |
 | `profile`               | no       | /       | Sets profile with selected set of checks to be used for scanning.                                                                                                                  |
-| `skip_checks`           | no       | /       | Skips checks with specified IDs. IDs should be comma-separated, space-separated or newline-separated and can be found in the check catalog withing the Spotter App.                |
+| `skip_checks`           | no       | /       | Skips checks with specified IDs. IDs should be comma-separated, space-separated or newline-separated and can be found in the check catalog within the Spotter App.                 |
+| `enforce_checks`        | no       | /       | Enforce checks with specified IDs. IDs should be comma-separated, space-separated or newline-separated and can be found in the check catalog within the Spotter App.               |
 | `custom_policies_path`  | no       | /       | Path to the file or folder with custom OPA policies written in Rego Language (enterprise feature).                                                                                 |
 | `custom_policies_clear` | no       | /       | Clears OPA policies for custom Spotter checks after scanning (enterprise feature).                                                                                                 |
 
@@ -107,6 +109,7 @@ jobs:
         with:
           endpoint: https://api.spotter.steampunk.si/api
           api_token: ${{ secrets.SPOTTER_API_TOKEN }}
+          config: config.yaml
           paths: playbook.yaml
           include_values: true
           include_metadata: true
@@ -114,7 +117,8 @@ jobs:
           no_docs_url: true
           ansible_version: 2.14
           profile: full
-          skip_checks: E001,E1300
+          skip_checks: E001,E903[fqcn=sensu.sensu_go.user]
+          enforce_checks: E1300,E1301
 ```
 
 ## Acknowledgement
