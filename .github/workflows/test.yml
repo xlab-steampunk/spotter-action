@@ -18,6 +18,7 @@ jobs:
         with:
           endpoint: https://api.spotter.steampunk.si/api
           api_token: ${{ secrets.SPOTTER_API_TOKEN }}
+          config: tests/config.yml
           paths: tests/playbook-with-errors.yml
           include_values: true
           include_metadata: true
@@ -25,7 +26,8 @@ jobs:
           no_docs_url: true
           ansible_version: 2.14
           profile: full
-          skip_checks: E001,E1300
+          skip_checks: E001,E903[fqcn=sensu.sensu_go.user]
+          enforce_checks: E1300,E1301
         continue-on-error: true
 
       - name: Run Ansible scan with username and password (old auth method, without env vars)
