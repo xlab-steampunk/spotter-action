@@ -51,6 +51,7 @@ jobs:
           propertyPath: runs.image
           value: docker://ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.tag }}
           commitChange: true
+          createPR: false
           branch: ${{ steps.vars.outputs.tag }}
           message: Use ${{ steps.vars.outputs.tag }} Docker image tag in action.yml
 
