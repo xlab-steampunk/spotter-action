@@ -50,6 +50,7 @@ jobs:
           valueFile: action.yml
           propertyPath: runs.image
           value: docker://ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.tag }}
+          quotingType: '"'
           commitChange: true
           createPR: false
           branch: ${{ steps.vars.outputs.tag }}
