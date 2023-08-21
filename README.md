@@ -45,8 +45,8 @@ The action accepts the following inputs:
 | `config`                | no       | /       | Path to JSON/YAML configuration file.                                                                                                                                              |
 | `paths`                 | no       | .       | List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned.                                                                           |
 | `project_id`            | no       | /       | ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used. |
-| `upload_values`         | no       | false   | Parses and uploads values from Ansible task parameters to the backend.                                                                                                             |
-| `upload_metadata`       | no       | false   | Uploads metadata (i.e., file names, line and column numbers) to the backend.                                                                                                       |
+| `exclude_values`        | no       | false   | Omits parsing and uploading values from Ansible playbooks.                                                                                                                         |
+| `exclude_metadata`      | no       | false   | Omits collecting and uploading metadata (i.e., file names, line and column numbers).                                                                                               |
 | `display_level`         | no       | hint    | Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error.             |
 | `no_docs_url`           | no       | false   | Omits documentation URLs from the output.                                                                                                                                          |
 | `ansible_version`       | no       | /       | Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning.                                                                           |
@@ -111,8 +111,8 @@ jobs:
           api_token: ${{ secrets.SPOTTER_API_TOKEN }}
           config: config.yaml
           paths: playbook.yaml
-          include_values: true
-          include_metadata: true
+          exclude_values: true
+          exclude_metadata: true
           display_level: error
           no_docs_url: true
           ansible_version: 2.14
