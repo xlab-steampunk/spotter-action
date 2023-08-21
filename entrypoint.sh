@@ -8,8 +8,8 @@ password="$4"
 config="$5"
 paths="$6"
 project_id="$7"
-include_values="$8"
-include_metadata="$9"
+exclude_values="$8"
+exclude_metadata="$9"
 display_level="${10}"
 no_docs_url="${11}"
 ansible_version="${12}"
@@ -69,12 +69,12 @@ buildScanCLICommand() {
     scan_command="${scan_command} --project-id ${project_id}"
   fi
 
-  if [ "$include_values" = "true" ]; then
-    scan_command="${scan_command} --include-values"
+  if [ "$exclude_values" = "true" ]; then
+    scan_command="${scan_command} --exclude-values"
   fi
 
-  if [ "$include_metadata" = "true" ]; then
-    scan_command="${scan_command} --include-metadata"
+  if [ "$exclude_metadata" = "true" ]; then
+    scan_command="${scan_command} --exclude-metadata"
   fi
 
   if [ -n "$display_level" ]; then
