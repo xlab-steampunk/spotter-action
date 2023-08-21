@@ -27,12 +27,12 @@ inputs:
   project_id:
     description: "ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used."
     required: false
-  include_values:
-    description: "Parses and uploads values from Ansible task parameters to the backend."
+  exclude_values:
+    description: "Omits parsing and uploading values from Ansible playbooks."
     required: false
     default: "false"
-  include_metadata:
-    description: "Uploads metadata (i.e., file names, line and column numbers) to the backend."
+  exclude_metadata:
+    description: "Omits collecting and uploading metadata (i.e., file names, line and column numbers)."
     required: false
     default: "false"
   display_level:
@@ -77,8 +77,8 @@ runs:
     - ${{ inputs.config }}
     - ${{ inputs.paths }}
     - ${{ inputs.project_id }}
-    - ${{ inputs.include_values }}
-    - ${{ inputs.include_metadata }}
+    - ${{ inputs.exclude_values }}
+    - ${{ inputs.exclude_metadata }}
     - ${{ inputs.display_level }}
     - ${{ inputs.no_docs_url }}
     - ${{ inputs.ansible_version }}
