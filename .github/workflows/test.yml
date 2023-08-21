@@ -20,8 +20,8 @@ jobs:
           api_token: ${{ secrets.SPOTTER_API_TOKEN }}
           config: tests/config.yml
           paths: tests/playbook-with-errors.yml
-          include_values: true
-          include_metadata: true
+          exclude_values: true
+          exclude_metadata: true
           display_level: error
           no_docs_url: true
           ansible_version: 2.14
