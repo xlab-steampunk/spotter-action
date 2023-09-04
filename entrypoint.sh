@@ -20,7 +20,7 @@ custom_policies_path="${16}"
 custom_policies_clear="${17}"
 
 # build global Spotter CLI command
-global_spotter_command="spotter"
+global_spotter_command="spotter --no-color"
 if [ -n "$endpoint" ]; then
   global_spotter_command="${global_spotter_command} --endpoint ${endpoint}"
 fi
@@ -59,7 +59,7 @@ buildClearPoliciesCommand() {
 }
 
 buildScanCLICommand() {
-  scan_command="${global_spotter_command} scan"
+  scan_command="${global_spotter_command} scan --no-progress"
 
   if [ "$config" = "true" ]; then
     scan_command="${scan_command} --config ${config}"
