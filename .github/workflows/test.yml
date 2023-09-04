@@ -24,7 +24,7 @@ jobs:
           exclude_metadata: true
           display_level: error
           no_docs_url: true
-          ansible_version: 2.14
+          ansible_version: 2.15
           profile: full
           skip_checks: E001,E903[fqcn=sensu.sensu_go.user]
           enforce_checks: E1300,E1301
@@ -48,7 +48,7 @@ jobs:
         uses: ./
         with:
           paths: tests/playbook-no-errors.yml
-          ansible_version: 2.14
+          ansible_version: 2.15
           display_level: error
         env:
           SPOTTER_API_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
