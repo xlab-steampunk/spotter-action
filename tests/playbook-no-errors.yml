@@ -1,9 +1,7 @@
 ---
-- name: OpenSSL example
+- name: Debug example
   hosts: localhost
   tasks:
-    - name: Ensure that the server certificate belongs to the specified private key
-      community.crypto.x509_certificate:
-        path: "{{ config_path }}/certificates/server.crt"
-        privatekey_path: "{{ config_path }}/certificates/server.key"
-        provider: assertonly
+    - name: Print a message
+      ansible.builtin.debug:
+        msg: 'Hello from Ansible'
