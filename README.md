@@ -8,6 +8,7 @@ A GitHub Action for scanning your Ansible content with [Steampunk Spotter].
   - [Inputs](#inputs)
   - [Outputs](#outputs)
   - [Environment variables](#environment-variables)
+- [Next Steps](#next-steps)
 - [Acknowledgement](#acknowledgement)
 
 ## Introduction
@@ -122,6 +123,9 @@ jobs:
           enforce_checks: E1300,E1301
 ```
 
+### Next steps
+Please refer to the [Steampunk Spotter Documentation] for a more comprehensive usage.
+
 ## Acknowledgement
 This GitHub Action was created by [XLAB Steampunk], IT automation specialist
 and leading expert in building Enterprise Ansible Collections.
@@ -129,4 +133,5 @@ and leading expert in building Enterprise Ansible Collections.
 [Steampunk Spotter]: https://steampunk.si/spotter/
 [steampunk-spotter]: https://pypi.org/project/steampunk-spotter/
 [new Steampunk Spotter account]: https://spotter.steampunk.si
+[Steampunk Spotter Documentation]: https://spotter.steampunk.si/docs/
 [XLAB Steampunk]: https://steampunk.si/
