@@ -11,8 +11,9 @@ A GitHub Action for scanning your Ansible content with [Steampunk Spotter].
 - [Acknowledgement](#acknowledgement)
 
 ## Introduction
-[Steampunk Spotter] provides an Ansible Playbook Scanning Tool that analyzes
-and offers recommendations for your Ansible Playbooks.
+[Steampunk Spotter] is an Ansible Playbook Platform that scans, analyzes,
+enhances, and provides insights for your playbooks.
+
 This GitHub Action allows you to use [steampunk-spotter] CLI within GitHub
 CI/CD workflows.
 
