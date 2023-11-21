@@ -5,19 +5,20 @@ endpoint="$1"
 api_token="$2"
 username="$3"
 password="$4"
-config="$5"
-paths="$6"
-project_id="$7"
-exclude_values="$8"
-exclude_metadata="$9"
-display_level="${10}"
-no_docs_url="${11}"
-ansible_version="${12}"
-profile="${13}"
-skip_checks="${14}"
-enforce_checks="${15}"
-custom_policies_path="${16}"
-custom_policies_clear="${17}"
+timeout="$5"
+config="$6"
+paths="$7"
+project_id="$8"
+exclude_values="$9"
+exclude_metadata="${10}"
+display_level="${11}"
+no_docs_url="${12}"
+ansible_version="${13}"
+profile="${14}"
+skip_checks="${15}"
+enforce_checks="${16}"
+custom_policies_path="${17}"
+custom_policies_clear="${18}"
 
 # build global Spotter CLI command
 global_spotter_command="spotter --no-color"
@@ -35,6 +36,10 @@ fi
 
 if [ -n "$password" ]; then
   global_spotter_command="${global_spotter_command} --password ${password}"
+fi
+
+if [ -n "$timeout" ]; then
+  global_spotter_command="${global_spotter_command} --timeout ${timeout}"
 fi
 
 # helper functions for building CLI subcommands

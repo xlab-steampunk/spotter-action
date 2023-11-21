@@ -17,6 +17,9 @@ inputs:
   password:
     description: "Steampunk Spotter password."
     required: false
+  timout:
+    description: "Steampunk Spotter API timeout (in seconds)."
+    required: false
   config:
     description: "Path to JSON/YAML configuration file."
     required: false
@@ -74,6 +77,7 @@ runs:
     - ${{ inputs.api_token }}
     - ${{ inputs.username }}
     - ${{ inputs.password }}
+    - ${{ inputs.timeout }}
     - ${{ inputs.config }}
     - ${{ inputs.paths }}
     - ${{ inputs.project_id }}
