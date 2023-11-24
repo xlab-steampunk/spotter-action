@@ -1,77 +1,77 @@
-name: "Steampunk Spotter"
-description: "An Ansible Playbook Scanning Tool that analyzes and offers recommendations for your Ansible Playbooks."
-author: "XLAB Steampunk"
+name: Steampunk Spotter
+description: An Ansible Playbook Scanning Tool that analyzes and offers recommendations for your Ansible Playbooks.
+author: XLAB Steampunk
 branding:
-  icon: "target"
-  color: "red"
+  icon: target
+  color: red
 inputs:
   endpoint:
-    description: "Steampunk Spotter API endpoint (instead of default https://api.spotter.steampunk.si/api)."
+    description: Steampunk Spotter API endpoint (instead of default https://api.spotter.steampunk.si/api).
     required: false
   api_token:
-    description: "Steampunk Spotter API token."
+    description: Steampunk Spotter API token.
     required: false
   username:
-    description: "Steampunk Spotter username."
+    description: Steampunk Spotter username.
     required: false
   password:
-    description: "Steampunk Spotter password."
+    description: Steampunk Spotter password.
     required: false
   timout:
-    description: "Steampunk Spotter API timeout (in seconds)."
+    description: Steampunk Spotter API timeout (in seconds).
     required: false
   config:
-    description: "Path to JSON/YAML configuration file."
+    description: Path to JSON/YAML configuration file.
     required: false
   paths:
-    description: "List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned."
+    description: List of paths to Ansible content files to be scanned. If not specified, the whole repository is scanned.
     required: false
-    default: "."
+    default: .
   project_id:
-    description: "ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used."
+    description: ID of an existing target project in the app, where the scan result will be stored. If not specified, the first project of the user's first organization (in the app) will be used.
     required: false
   exclude_values:
-    description: "Omits parsing and uploading values from Ansible playbooks."
+    description: Omits parsing and uploading values from Ansible playbooks.
     required: false
     default: "false"
   exclude_metadata:
-    description: "Omits collecting and uploading metadata (i.e., file names, line and column numbers)."
+    description: Omits collecting and uploading metadata (i.e., file names, line and column numbers).
     required: false
     default: "false"
   display_level:
     description: "Displays check results with specified level or greater (e.g., warning will show all warnings and errors, but suppress hints). Available options: hint, warning, error."
     required: false
-    default: "hint"
+    default: hint
   no_docs_url:
-    description: "Omits documentation URLs from the output."
+    description: Omits documentation URLs from the output.
     required: false
     default: "false"
   ansible_version:
-    description: "Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning."
+    description: Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning.
     required: false
   profile:
-    description: "Sets profile with selected set of checks to be used for scanning."
+    description: Sets profile with selected set of checks to be used for scanning.
     required: false
-    default: "default"
+    default: default
   skip_checks:
-    description: "Skips checks with specified IDs."
+    description: Skips checks with specified IDs.
     required: false
   enforce_checks:
-    description: "Enforce checks with specified IDs."
+    description: Enforce checks with specified IDs.
     required: false
   custom_policies_path:
-    description: "Path to the file or folder with custom OPA policies written in Rego Language (enterprise feature)."
+    description: Path to the file or folder with custom OPA policies written in Rego Language (enterprise feature).
     required: false
   custom_policies_clear:
-    description: "Clears OPA policies for custom Spotter checks after scanning (enterprise feature)."
+    description: Clears OPA policies for custom Spotter checks after scanning (enterprise feature).
     required: false
     default: "false"
 outputs:
   output:
-    description: "Output from scanning (from spotter scan CLI command)."
+    description: Output from scanning (from spotter scan CLI command).
 runs:
-  using: "docker"
-  image: "docker://ghcr.io/xlab-steampunk/spotter-action:latest"
+  using: docker
+  image: docker://ghcr.io/xlab-steampunk/spotter-action:2.6.0
   args:
     - ${{ inputs.endpoint }}
     - ${{ inputs.api_token }}
