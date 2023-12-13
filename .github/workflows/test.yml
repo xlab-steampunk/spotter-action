@@ -10,7 +10,7 @@ jobs:
       - name: Run Ansible scan with minimal possible example
         uses: ./
         env:
-          SPOTTER_API_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
+          SPOTTER_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
         continue-on-error: true
 
       - name: Run Ansible scan with different inputs
@@ -51,4 +51,4 @@ jobs:
           ansible_version: 2.16
           display_level: error
         env:
-          SPOTTER_API_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
+          SPOTTER_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
