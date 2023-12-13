@@ -27,7 +27,7 @@ if [ -n "$endpoint" ]; then
 fi
 
 if [ -n "$api_token" ]; then
-  global_spotter_command="${global_spotter_command} --api-token ${api_token}"
+  global_spotter_command="${global_spotter_command} --token ${api_token}"
 fi
 
 if [ -n "$username" ]; then
@@ -43,24 +43,26 @@ if [ -n "$timeout" ]; then
 fi
 
 # helper functions for building CLI subcommands
-buildSetPoliciesCommand() {
-  set_policies_command="${global_spotter_command} set-policies"
+buildPoliciesCommand() {
+  policies_command="${global_spotter_command} policies"
 
   if [ -n "$project_id" ]; then
-    set_policies_command="${set_policies_command} --project-id ${project_id}"
-  fi
-
-  if [ -n "$custom_policies_path" ]; then
-    set_policies_command="${set_policies_command} $custom_policies_path"
+    policies_command="${policies_command} --project-id ${project_id}"
   fi
 }
 
-buildClearPoliciesCommand() {
-  clear_policies_command="${global_spotter_command} clear-policies"
+buildPoliciesSetCommand() {
+  buildPoliciesCommand
+  policies_set_command="${policies_command} set"
 
-  if [ -n "$project_id" ]; then
-    clear_policies_command="${clear_policies_command} --project-id ${project_id}"
+  if [ -n "$custom_policies_path" ]; then
+    policies_set_command="${policies_set_command} $custom_policies_path"
   fi
+}
+
+buildPoliciesClearCommand() {
+  buildPoliciesCommand
+  policies_clear_command="${policies_command} clear"
 }
 
 buildScanCLICommand() {
@@ -116,16 +118,16 @@ buildScanCLICommand() {
 }
 
 # construct CLI commands
-buildSetPoliciesCommand
+buildPoliciesSetCommand
 buildScanCLICommand
-buildClearPoliciesCommand
+buildPoliciesClearCommand
 
 # run CLI commands
 if [ -n "$custom_policies_path" ]; then
-  ${set_policies_command}
+  ${policies_set_command}
   ${scan_command}
   if [ "$custom_policies_clear" = "true" ]; then
-    ${clear_policies_command}
+    ${policies_clear_command}
   fi
 else
   ${scan_command}
