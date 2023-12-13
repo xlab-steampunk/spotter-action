@@ -69,12 +69,12 @@ The action will take into account the following environment variables:
 
 * `SPOTTER_ENDPOINT`: Steampunk Spotter API endpoint (instead of default
   https://api.spotter.steampunk.si/api).
-* `SPOTTER_API_TOKEN`: Steampunk Spotter API token (can be generated in the
+* `SPOTTER_TOKEN`: Steampunk Spotter API token (can be generated in the
    user settings within the Spotter App);
 * `SPOTTER_USERNAME`: Steampunk Spotter username;
 * `SPOTTER_PASSWORD`: Steampunk Spotter password.
 
-We encourage you to authenticate by setting `SPOTTER_API_TOKEN` instead of old
+We encourage you to authenticate by setting `SPOTTER_TOKEN` instead of old
 `SPOTTER_USERNAME` and `SPOTTER_PASSWORD` environment variables.
 
 ### Examples
@@ -92,7 +92,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: xlab-steampunk/spotter-action@<version>
         env:
-          SPOTTER_API_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
+          SPOTTER_TOKEN: ${{ secrets.SPOTTER_TOKEN }}
 ```
 
 A more complex example with multiple action inputs is the following:
@@ -111,7 +111,7 @@ jobs:
         uses: xlab-steampunk/spotter-action@<version>
         with:
           endpoint: https://api.spotter.steampunk.si/api
-          api_token: ${{ secrets.SPOTTER_API_TOKEN }}
+          api_token: ${{ secrets.SPOTTER_TOKEN }}
           config: config.yaml
           paths: playbook.yaml
           exclude_values: true
