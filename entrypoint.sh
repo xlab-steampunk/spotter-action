@@ -66,7 +66,7 @@ buildPoliciesClearCommand() {
 }
 
 buildScanCLICommand() {
-  scan_command="${global_spotter_command} scan --no-progress"
+  scan_command="${global_spotter_command} scan --origin ci --no-progress"
 
   if [ "$config" = "true" ]; then
     scan_command="${scan_command} --config ${config}"
