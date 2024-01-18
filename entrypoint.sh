@@ -13,12 +13,13 @@ exclude_values="$9"
 exclude_metadata="${10}"
 display_level="${11}"
 no_docs_url="${12}"
-ansible_version="${13}"
-profile="${14}"
-skip_checks="${15}"
-enforce_checks="${16}"
-custom_policies_path="${17}"
-custom_policies_clear="${18}"
+no_scan_url="${13}"
+ansible_version="${14}"
+profile="${15}"
+skip_checks="${16}"
+enforce_checks="${17}"
+custom_policies_path="${18}"
+custom_policies_clear="${19}"
 
 # build global Spotter CLI command
 global_spotter_command="spotter --no-color"
@@ -90,6 +91,10 @@ buildScanCLICommand() {
 
   if [ "$no_docs_url" = "true" ]; then
     scan_command="${scan_command} --no-docs-url"
+  fi
+
+  if [ "$no_scan_url" = "true" ]; then
+    scan_command="${scan_command} --no-scan-url"
   fi
 
   if [ -n "$ansible_version" ]; then
