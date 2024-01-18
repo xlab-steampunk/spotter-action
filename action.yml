@@ -46,6 +46,10 @@ inputs:
     description: "Omits documentation URLs from the output."
     required: false
     default: "false"
+  no_scan_url:
+    description: "Omits scan URL from the output."
+    required: false
+    default: "true"
   ansible_version:
     description: "Ansible version to use for scanning. If not specified, all Ansible versions are considered for scanning."
     required: false
@@ -85,6 +89,7 @@ runs:
     - ${{ inputs.exclude_metadata }}
     - ${{ inputs.display_level }}
     - ${{ inputs.no_docs_url }}
+    - ${{ inputs.no_scan_url }}
     - ${{ inputs.ansible_version }}
     - ${{ inputs.profile }}
     - ${{ inputs.skip_checks }}
