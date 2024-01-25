@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli:3.1.0
+FROM registry.gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli:3.1.1
 
 ENTRYPOINT ["/entrypoint.sh"]
 
