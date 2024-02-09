@@ -53,3 +53,12 @@ jobs:
           display_level: error
         env:
           SPOTTER_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
+
+      - name: Run Ansible scan with debug
+        uses: ./
+        with:
+          endpoint: https://api.spotter.steampunk.si/api
+          api_token: ${{ secrets.SPOTTER_API_TOKEN }}
+          paths: tests/playbook-no-errors.yml
+          debug: true
+        continue-on-error: true

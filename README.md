@@ -59,6 +59,7 @@ The action accepts the following inputs:
 | `enforce_checks`        | no       | /       | Enforce checks with specified IDs. IDs should be comma-separated, space-separated or newline-separated and can be found in the check catalog within the Spotter App.               |
 | `custom_policies_path`  | no       | /       | Path to the file or folder with custom OPA policies written in Rego Language (enterprise feature).                                                                                 |
 | `custom_policies_clear` | no       | /       | Clears OPA policies for custom Spotter checks after scanning (enterprise feature).                                                                                                 |
+| `debug`                 | no       | /       | Enable debug output.                                                                                                                                                               |
 
 ### Outputs
 The action produces the following outputs:
@@ -123,6 +124,7 @@ jobs:
           profile: full
           skip_checks: E001,E903[fqcn=sensu.sensu_go.user]
           enforce_checks: E1300,E1301
+          debug: true
 ```
 
 ### Next steps
