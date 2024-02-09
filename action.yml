@@ -70,6 +70,9 @@ inputs:
     description: "Clears OPA policies for custom Spotter checks after scanning (enterprise feature)."
     required: false
     default: "false"
+  debug:
+    description: "Enable debug output."
+    required: false
 outputs:
   output:
     description: "Output from scanning (from spotter scan CLI command)."
@@ -82,6 +85,7 @@ runs:
     - ${{ inputs.username }}
     - ${{ inputs.password }}
     - ${{ inputs.timeout }}
+    - ${{ inputs.debug }}
     - ${{ inputs.config }}
     - ${{ inputs.paths }}
     - ${{ inputs.project_id }}
