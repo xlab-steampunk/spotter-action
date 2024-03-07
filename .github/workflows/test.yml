@@ -66,5 +66,11 @@ jobs:
       - name: Run Ansible scan with SARIF output
         uses: ./
         with:
+          path: tests/playbook-with-errors.yml
           sarif_file: example.sarif
         continue-on-error: true
+
+      - name: Check Sarif
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: example.sarif
