@@ -73,6 +73,9 @@ inputs:
   debug:
     description: "Enable debug output."
     required: false
+  sarif_file:
+    description: "Sets the name of the SARIF file and triggers the creation of the SARIF report."
+    required: false
 outputs:
   output:
     description: "Output from scanning (from spotter scan CLI command)."
@@ -100,3 +103,4 @@ runs:
     - ${{ inputs.enforce_checks }}
     - ${{ inputs.custom_policies_path }}
     - ${{ inputs.custom_policies_clear }}
+    - ${{ inputs.sarif_file }}
