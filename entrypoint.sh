@@ -21,6 +21,7 @@ skip_checks="${17}"
 enforce_checks="${18}"
 custom_policies_path="${19}"
 custom_policies_clear="${20}"
+sarif_file="${21}"
 
 # build global Spotter CLI command
 global_spotter_command="spotter --no-color"
@@ -120,6 +121,10 @@ buildScanCLICommand() {
     enforce_checks=$(printf "%s" "$enforce_checks" | tr "\n" ",")
     set -- "${scan_command}" "--enforce-checks" "\"""${enforce_checks}""\""
     scan_command="$*"
+  fi
+
+  if [ -n "$sarif_file" ]; then
+    scan_command="${scan_command} --sarif ${sarif_file}"
   fi
 
   if [ -n "$paths" ]; then

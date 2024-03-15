@@ -62,3 +62,9 @@ jobs:
           paths: tests/playbook-no-errors.yml
           debug: true
         continue-on-error: true
+
+      - name: Run Ansible scan with SARIF output
+        uses: ./
+        with:
+          sarif_file: example.sarif
+        continue-on-error: true
