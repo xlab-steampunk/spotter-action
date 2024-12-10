@@ -17,7 +17,7 @@ inputs:
   password:
     description: "Steampunk Spotter password."
     required: false
-  timout:
+  timeout:
     description: "Steampunk Spotter API timeout (in seconds)."
     required: false
   config:
