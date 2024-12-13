@@ -137,6 +137,9 @@ buildPoliciesSetCommand
 buildScanCLICommand
 buildPoliciesClearCommand
 
+# echo scan command - helpfull for debuging
+echo ${scan_command}
+
 # run CLI commands
 if [ -n "$custom_policies_path" ]; then
   ${policies_set_command}
