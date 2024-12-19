@@ -23,6 +23,10 @@ custom_policies_path="${19}"
 custom_policies_clear="${20}"
 sarif_file="${21}"
 
+# TODO when using Spotter CLI version 6.5.0 add:
+# sarif_github_file= ..
+# include_values=
+
 # build global Spotter CLI command
 global_spotter_command="spotter --no-color"
 if [ -n "$endpoint" ]; then

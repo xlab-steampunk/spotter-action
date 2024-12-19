@@ -7,6 +7,9 @@ jobs:
       - name: Checkout this repository
         uses: actions/checkout@v4
 
+      - name: Build action from local Dockerfile instead of published image
+        run: yq -i '.runs.image = "Dockerfile"' action.yml
+
       - name: Run Ansible scan with minimal possible example
         uses: ./
         env:
