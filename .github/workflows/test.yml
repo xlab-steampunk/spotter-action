@@ -66,7 +66,7 @@ jobs:
       - name: Run Ansible scan with SARIF output
         uses: xlab-steampunk/spotter-action@5.0.0
         with:
-          paths: tests/playbook-with-errors.yml
+          paths: tests/playbook-example-errors.yml
           ansible_version: 2.16
           profile: full
           sarif_file: example.sarif
