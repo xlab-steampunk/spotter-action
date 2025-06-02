@@ -42,3 +42,6 @@
     - name: List Sensu users
       sensu.sensu_go.user_info:
       register: sensu_users
+
+    - debug:
+        msg: "Here to produce SARIF output"
