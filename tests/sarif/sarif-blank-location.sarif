@@ -1,0 +1,75 @@
+{
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Steampunk Spotter",
+          "version": "0.0.0",
+          "informationUri": "https://steampunk.si/spotter/",
+          "rules": [
+            {
+              "id": "E005",
+              "name": "RequiredParameterMissing",
+              "shortDescription": {
+                "text": "required-parameter-missing"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "help": {
+                "text": ""
+              }
+            },
+            {
+              "id": "E900",
+              "name": "UnsupportedEnvironment",
+              "shortDescription": {
+                "text": "unsupported-environment"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "help": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "E005",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "'name' is a required parameter in module 'sensu.sensu_go.user'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/playbook-with-errors.yml"
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "E900",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Unsupported environment detected. This result has no file location, reproducing the case fixed for scans with results not tied to a specific file (e.g. environment-level results)."
+          },
+          "locations": []
+        }
+      ]
+    }
+  ]
+}

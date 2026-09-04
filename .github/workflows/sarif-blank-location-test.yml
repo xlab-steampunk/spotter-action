@@ -1,0 +1,36 @@
+name: sarif-blank-location-test
+on: push
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  upload-sarif-blank-location:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+
+      - name: Upload pre-built SARIF file containing a result with no location
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: tests/sarif/sarif-blank-location.sarif
+          category: sarif-blank-location-test
+
+      - name: Run Ansible scan with SARIF output (real CLI run, for comparison)
+        uses: ./
+        with:
+          paths: tests/playbook-with-errors.yml
+          sarif_file: real-scan.sarif
+        continue-on-error: true
+        env:
+          SPOTTER_TOKEN: ${{ secrets.SPOTTER_API_TOKEN }}
+
+      - name: Upload real scan SARIF output
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: real-scan.sarif
+          category: sarif-real-scan
+        continue-on-error: true
