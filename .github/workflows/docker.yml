@@ -34,6 +34,16 @@ jobs:
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
+      - name: Check action.yml image matches tag (for tags)
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        run: |
+          expected="docker://ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.tag }}"
+          actual=$(yq '.runs.image' action.yml)
+          if [ "$actual" != "$expected" ]; then
+            echo "::error::action.yml runs.image ('$actual') does not match the pushed tag ('$expected'). Update action.yml before tagging a release."
+            exit 1
+          fi
+
       - name: Build and push (for tags)
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         id: docker_build_tag
@@ -42,19 +52,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.tag }}
-
-      - name: Update action.yml (for tags)
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-        uses: fjogeleit/yaml-update-action@v0.13.1
-        with:
-          valueFile: action.yml
-          propertyPath: runs.image
-          value: docker://ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.tag }}
-          quotingType: '"'
-          commitChange: true
-          createPR: false
-          branch: ${{ steps.vars.outputs.tag }}
-          message: Use ${{ steps.vars.outputs.tag }} Docker image tag in action.yml
 
       - name: Draft a new GitHub release (for tags)
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
