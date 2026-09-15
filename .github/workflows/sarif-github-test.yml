@@ -1,0 +1,19 @@
+name: sarif-github-test
+on: push
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  upload-sarif-github-filtered:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+
+      - name: Upload pre-built SARIF file matching --sarif-github output (location-less result filtered out)
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: tests/sarif/sarif-github-filtered.sarif
+          category: sarif-github-filtered-test
