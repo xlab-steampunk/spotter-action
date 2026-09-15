@@ -60,7 +60,7 @@ The action accepts the following inputs:
 | `custom_policies_path`  | no       | /       | Path to the file or folder with custom OPA policies written in Rego Language (enterprise feature).                                                                                 |
 | `custom_policies_clear` | no       | /       | Clears OPA policies for custom Spotter checks after scanning (enterprise feature).                                                                                                 |
 | `debug`                 | no       | /       | Enable debug output.                                                                                                                                                               |
-| `sarif_file`            | no       | /       | Sets the name of the SARIF file and triggers the creation of the SARIF report.                                                                                                     |
+| `sarif_file`            | no       | /       | Sets the name of the SARIF file and triggers the creation of the SARIF report, in a format compatible with GitHub Code Scanning.                                                   |
 
 ### Outputs
 The action produces the following outputs:

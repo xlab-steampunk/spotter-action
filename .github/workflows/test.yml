@@ -66,7 +66,7 @@ jobs:
           debug: true
         continue-on-error: true
 
-      - name: Run Ansible scan with SARIF output
+      - name: Run Ansible scan with GitHub SARIF output
         uses: ./
         with:
           sarif_file: example.sarif
