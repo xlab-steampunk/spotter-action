@@ -67,7 +67,7 @@ jobs:
         continue-on-error: true
 
       - name: Run Ansible scan with GitHub SARIF output
-        uses: xlab-steampunk/spotter-action@6.1.0
+        uses: xlab-steampunk/spotter-action@fa17ebfcd074ce7b8c3f820057377a5e5d26f629
         with:
           paths: tests/playbook-example-errors.yml
           ansible_version: 2.16
