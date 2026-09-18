@@ -67,7 +67,18 @@ jobs:
         continue-on-error: true
 
       - name: Run Ansible scan with GitHub SARIF output
-        uses: ./
+        uses: xlab-steampunk/spotter-action@fa17ebfcd074ce7b8c3f820057377a5e5d26f629
         with:
+          paths: tests/playbook-example-errors.yml
+          ansible_version: 2.16
+          profile: full
           sarif_file: example.sarif
         continue-on-error: true
+
+      - name: Print sarif
+        run: cat example.sarif
+
+      - name: Read SARIF
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: example.sarif
