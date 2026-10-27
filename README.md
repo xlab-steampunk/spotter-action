@@ -1,5 +1,6 @@
 # GitHub Action for Steampunk Spotter
-A GitHub Action for scanning your Ansible content with [Steampunk Spotter].
+A GitHub Action that checks your Ansible and Terraform code against your
+standards with Steampunk Spotter, before it runs.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -12,8 +13,11 @@ A GitHub Action for scanning your Ansible content with [Steampunk Spotter].
 - [Acknowledgement](#acknowledgement)
 
 ## Introduction
-[Steampunk Spotter] is an Ansible Playbook Platform that scans, analyzes,
-enhances, and provides insights for your playbooks.
+[Steampunk Spotter] is the shift-left governance platform and AI guardrail for
+Ansible Playbooks and Terraform configurations.
+It enforces policy, compliance, security and version checks deterministically,
+so only code that meets your organization’s standards reaches production,
+whether an engineer or an AI tool wrote it.
 
 This GitHub Action allows you to use [steampunk-spotter] CLI within GitHub
 CI/CD workflows.

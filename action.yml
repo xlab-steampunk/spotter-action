@@ -1,5 +1,5 @@
 name: "Steampunk Spotter"
-description: "An Ansible Playbook Scanning Tool that analyzes and offers recommendations for your Ansible Playbooks."
+description: "Shift-left governance and AI guardrail for Ansible and Terraform code. Gate every change against your policy in CI/CD."
 author: "XLAB Steampunk"
 branding:
   icon: "target"
