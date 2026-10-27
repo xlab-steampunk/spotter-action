@@ -76,12 +76,18 @@ inputs:
   sarif_file:
     description: "Sets the name of the SARIF file and triggers the creation of the SARIF report, in a format compatible with GitHub Code Scanning."
     required: false
+  include_vars:
+    description: "Include content from Ansible or Terraform vars files."
+    required: false
+  include_plans:
+    description: "Include content from Terraform plans (in JSON format)."
+    required: false
 outputs:
   output:
     description: "Output from scanning (from spotter scan CLI command)."
 runs:
   using: "docker"
-  image: "docker://ghcr.io/xlab-steampunk/spotter-action:6.1.0"
+  image: "docker://ghcr.io/xlab-steampunk/spotter-action:6.2.0"
   args:
     - ${{ inputs.endpoint }}
     - ${{ inputs.api_token }}
@@ -104,3 +110,5 @@ runs:
     - ${{ inputs.custom_policies_path }}
     - ${{ inputs.custom_policies_clear }}
     - ${{ inputs.sarif_file }}
+    - ${{ inputs.include_vars }}
+    - ${{ inputs.include_plans }}

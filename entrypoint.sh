@@ -22,6 +22,9 @@ enforce_checks="${18}"
 custom_policies_path="${19}"
 custom_policies_clear="${20}"
 sarif_file="${21}"
+include_vars="${22}"
+include_plans="${23}"
+
 
 # build global Spotter CLI command
 global_spotter_command="spotter --no-color"
@@ -129,6 +132,14 @@ buildScanCLICommand() {
 
   if [ -n "$paths" ]; then
     scan_command="${scan_command} $paths"
+  fi
+
+  if [ "$include_vars" = "true" ]; then
+    scan_command="${scan_command} --include-vars"
+  fi
+
+  if [ "$include_plans" = "true" ]; then
+    scan_command="${scan_command} --include-plans"
   fi
 }
 

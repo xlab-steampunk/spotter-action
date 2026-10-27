@@ -65,6 +65,8 @@ The action accepts the following inputs:
 | `custom_policies_clear` | no       | /       | Clears OPA policies for custom Spotter checks after scanning (enterprise feature).                                                                                                 |
 | `debug`                 | no       | /       | Enable debug output.                                                                                                                                                               |
 | `sarif_file`            | no       | /       | Sets the name of the SARIF file and triggers the creation of the SARIF report, in a format compatible with GitHub Code Scanning.                                                   |
+| `include_vars`          | no       | false   | Includes content from Ansible or Terraform vars files in the scan.                                                                                                                 |
+| `include_plans`         | no       | false   | Includes content from Terraform plans (in JSON format).                                                                                                                            |
 
 ### Outputs
 The action produces the following outputs:
